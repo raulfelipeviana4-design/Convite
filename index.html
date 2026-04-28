@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{overflow:hidden;background:#000;}
+
+/* PORTA */
+#cover{
+  position:fixed;
+  inset:0;
+  background:url('porta.jpg') center/cover no-repeat;
+}
+
+/* HOTSPOT */
+#hotspot{
+  position:absolute;
+  top:20%;
+  left:30%;
+  width:40%;
+  height:60%;
+  cursor:pointer;
+  z-index:10;
+}
+
+/* VIDEO */
+#videoContainer{
+  position:fixed;
+  inset:0;
+  display:none;
+}
+video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* TELA 1 */
+#screen1{
+  position:fixed;
+  inset:0;
+  background:url('tela1.jpg') center/cover no-repeat;
+  display:none;
+}
+
+#screen1Click{
+  position:absolute;
+  top:60%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:300px;
+  height:120px;
+  cursor:pointer;
+}
+
+/* TELA 2 */
+#screen2{
+  position:fixed;
+  inset:0;
+  background:url('tela2.jpg') center/cover no-repeat;
+  display:none;
+}
+
+/* BOTÕES */
+#btnVestimenta{
+  position:absolute;
+  bottom:12%;
+  left:75%;
+  width:120px;
+  height:120px;
+  cursor:pointer;
+}
+
+#btnMapa{
+  position:absolute;
+  bottom:12%;
+  left:30%;
+  width:120px;
+  height:120px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div id="cover">
+  <div id="hotspot"></div>
+</div>
+
+<div id="videoContainer">
+  <video id="video" playsinline>
+    <source src="video.mp4">
+  </video>
+</div>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="musica.mp3">
+</audio>
+
+<div id="screen1">
+  <div id="screen1Click"></div>
+</div>
+
+<div id="screen2">
+  <div id="btnVestimenta"></div>
+  <div id="btnMapa"></div>
+</div>
+
+<script>
+const hotspot=document.getElementById('hotspot');
+const video=document.getElementById('video');
+const videoContainer=document.getElementById('videoContainer');
+const cover=document.getElementById('cover');
+const screen1=document.getElementById('screen1');
+const screen1Click=document.getElementById('screen1Click');
+const screen2=document.getElementById('screen2');
+const music=document.getElementById('bgMusic');
+const btnVestimenta=document.getElementById('btnVestimenta');
+const btnMapa=document.getElementById('btnMapa');
+
+music.volume=0.4;
+
+hotspot.onclick=()=>{
+  cover.style.display="none";
+  videoContainer.style.display="block";
+  video.play();
+  music.play();
+};
+
+video.onended=()=>{
+  videoContainer.style.display="none";
+  screen1.style.display="block";
+};
+
+screen1Click.onclick=()=>{
+  screen1.style.display="none";
+  screen2.style.display="block";
+};
+
+btnVestimenta.onclick=()=>{
+  window.open("vestimenta.html","_blank");
+};
+
+btnMapa.onclick=()=>{
+  window.open("https://www.google.com/maps/place/Espa%C3%A7o+Lara/@-19.7419054,-43.9989479,819m/data=!3m2!1e3!4b1!4m6!3m5!1s0xa68fa3df01b32b:0x22038fde363a0af1!8m2!3d-19.7419054!4d-43.9989479!16s%2Fg%2F11x20y1t75?entry=ttu","_blank");
+};
+</script>
+
+</body>
+</html>
