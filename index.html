@@ -7,6 +7,8 @@ const screen1 = document.getElementById('screen1');
 const screen1Click = document.getElementById('screen1Click');
 const screen2 = document.getElementById('screen2');
 const music = document.getElementById('bgMusic');
+
+/* 🔥 só pega se existir */
 const btnVestimenta = document.getElementById('btnVestimenta');
 const btnMapa = document.getElementById('btnMapa');
 
@@ -14,57 +16,50 @@ music.volume = 0.4;
 
 let audioUnlocked = false;
 
-/* 🔥 FUNÇÃO GLOBAL DE DESBLOQUEIO (iPhone fix) */
 function unlockAudio() {
   if (audioUnlocked) return;
-
   audioUnlocked = true;
 
   music.muted = false;
-
-  music.play()
-    .then(() => {
-      console.log("Áudio liberado ✅");
-    })
-    .catch(() => {
-      console.log("Falha ao liberar áudio (normal no iOS)");
-    });
+  music.play().catch(() => {});
 }
 
-/* PORTA → VIDEO + MÚSICA */
-hotspot.addEventListener('click', () => {
-  unlockAudio(); // 🔥 ESSENCIAL
+/* PORTA */
+hotspot.onclick = () => {
+  unlockAudio();
 
   cover.style.display = "none";
   videoContainer.style.display = "block";
 
   video.play();
-});
+};
 
-/* GARANTE QUE O ÁUDIO CONTINUA */
-video.addEventListener('ended', () => {
+/* VIDEO → TELA 1 */
+video.onended = () => {
   videoContainer.style.display = "none";
   screen1.style.display = "block";
 
-  // 🔥 força continuidade no iPhone
   music.play().catch(() => {});
-});
+};
 
 /* TELA 1 → TELA 2 */
-screen1Click.addEventListener('click', () => {
+screen1Click.onclick = () => {
   screen1.style.display = "none";
   screen2.style.display = "block";
 
-  // 🔥 reforço (iOS às vezes pausa)
   music.play().catch(() => {});
-});
-
-/* BOTÕES */
-btnVestimenta.onclick = () => {
-  window.open("vestimenta.html", "_blank");
 };
 
-btnMapa.onclick = () => {
-  window.open("https://www.google.com/maps/place/Espa%C3%A7o+Lara/@-19.7419054,-43.9989479,819m/data=!3m2!1e3!4b1!4m6!3m5!1s0xa68fa3df01b32b:0x22038fde363a0af1!8m2!3d-19.7419054!4d-43.9989479!16s%2Fg%2F11x20y1t75?entry=ttu","_blank");
-};
+/* BOTÕES (AGORA SEGURO) */
+if (btnVestimenta) {
+  btnVestimenta.onclick = () => {
+    window.open("vestimenta.html", "_blank");
+  };
+}
+
+if (btnMapa) {
+  btnMapa.onclick = () => {
+    window.open("https://www.google.com/maps/place/Espa%C3%A7o+Lara/@-19.7419054,-43.9989479,819m/data=!3m2!1e3!4b1!4m6!3m5!1s0xa68fa3df01b32b:0x22038fde363a0af1!8m2!3d-19.7419054!4d-43.9989479!16s%2Fg%2F11x20y1t75?entry=ttu","_blank");
+  };
+}
 </script>
